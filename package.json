@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "tinacms dev -c \"next dev\"",
+    "build": "tinacms build && next build",
+    "start": "tinacms build && next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@tinacms/auth": "^1.0.3",
+    "@tinacms/cli": "^1.5.16",
     "autoprefixer": "10.4.14",
     "next": "13.4.4",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2"
+    "tailwindcss": "3.3.2",
+    "tinacms": "^1.5.8"
   }
 }
