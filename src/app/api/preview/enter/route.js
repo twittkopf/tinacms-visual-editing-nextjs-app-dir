@@ -6,22 +6,19 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
 
-  if (slug) {
-    if (process.env.NODE_ENV === "development") {
-      // Enter preview-mode in local development
+  if (process.env.NODE_ENV === "development") {
+    draftMode().enable();
+  } else {
+    const token = searchParams.get("token");
+    const isAuthorizedRes = await isUserAuthorized({
+      token: `Bearer ${token}`,
+      clientID: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+    });
+
+    if (isAuthorizedRes) {
       draftMode().enable();
-    } else {
-      // Check tina cloud token
-      const isAuthorizedRes = await isUserAuthorized({
-        token: `Bearer ${req.query.token}`,
-        clientID: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
-      });
-
-      if (isAuthorizedRes) {
-        draftMode().enable();
-      }
     }
-
-    return redirect(`/${slug}`);
   }
+
+  return redirect(slug);
 }

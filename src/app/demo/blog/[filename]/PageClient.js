@@ -10,5 +10,12 @@ export default function PageClient({ query, variables, data }) {
     data: data,
   });
 
-  return <PageServer data={tinaData} />;
+  return (
+    <>
+      <div className="m-6 inline-block bg-red-100 p-6 uppercase text-slate-900">
+        This is rendered on the Client
+      </div>
+      <PageServer data={tinaData} />
+    </>
+  );
 }
